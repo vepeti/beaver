@@ -2,6 +2,7 @@
 
 import yaml
 import jinja2
+import subprocess
 
 YAML_FILE="beaver.yml"
 with open(YAML_FILE) as fp:
@@ -21,7 +22,11 @@ for flag in config.items():
     if isinstance(flag[1], bool) and flag[1]:
         command+=" --"+flag[0]
 
-    if isinstance(flag[1], str) and flag[1]!="":
+    if isinstance(flag[1], int):
+        if flag[0]=="port":
+            command+=" --"+flag[0]+"="+str(flag[1])
+
+    if (isinstance(flag[1], str) and flag[1]!=""):
         if flag[0]=="rsh":
             command+=" --"+flag[0]+"='"+flag[1]+"'"
         else:
@@ -33,4 +38,12 @@ for flag in config.items():
 
 command+=" "+config["src"]+" "+config["dest"]
 
-print(command)
+print("Running command: "+command)
+
+syncproc=subprocess.Popen(command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+while True:
+    line = syncproc.stdout.readline()
+    if not line:
+        break
+    print(line.rstrip().decode("utf-8"))

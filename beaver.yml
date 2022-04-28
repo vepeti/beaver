@@ -1,7 +1,7 @@
 ---
 
-src: /opt/scripts
-dest: /root
+src: /srv/ftp
+dest: .
 port: 22
 private_key: /root/.ssh/id_rsa
 
