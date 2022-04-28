@@ -1,0 +1,62 @@
+---
+
+src: /opt/scripts
+dest: /root
+port: 22
+private_key: /root/.ssh/id_rsa
+
+verbose: yes
+quiet: no
+
+progress: yes
+human-readable: yes
+stats: yes
+
+log-file: ""
+
+# archive mode; equals -rlptgoD (no -H,-A,-X)
+archive: yes
+
+# skip files that are newer on the receiver
+update: yes
+
+compress: yes
+
+exclude: 
+    - x
+    - y
+    - z
+
+exclude-from: ""
+
+# check diffs based on md5 checksum
+checksum: no
+
+# basic options
+recursive: no
+links: no
+permissions: no
+times: no
+group: no
+owner: no
+devices: no
+
+# check diffs based on md5 checksum
+checksum: no
+
+relative: no
+
+backup: no
+
+remove-source-files: no
+delete: no
+
+# transfer directories without recursing
+dirs: no
+
+# perform a trial run with no changes made
+dry-run: no
+
+rsh: "ssh -i {{ private_key }}"
+
+existing: no
