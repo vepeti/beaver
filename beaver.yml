@@ -22,6 +22,7 @@ update: yes
 
 compress: yes
 
+# relative exclude paths (accepts * as wildcard)
 exclude: 
     - x
     - y
@@ -57,6 +58,6 @@ dirs: no
 # perform a trial run with no changes made
 dry-run: no
 
-rsh: "ssh -i {{ private_key }}"
+rsh: 'ssh -p {{ port }} -i {{ private_key }}'
 
 existing: no

@@ -16,7 +16,7 @@ config=yaml.safe_load(template.render(**dataMap))
 command="rsync"
 
 for flag in config.items():
-    if flag[0] in ("src","dest","private_key"):
+    if flag[0] in ("src","dest","private_key","port"):
         continue
 
     if isinstance(flag[1], bool) and flag[1]:
@@ -40,10 +40,4 @@ command+=" "+config["src"]+" "+config["dest"]
 
 print("Running command: "+command)
 
-syncproc=subprocess.Popen(command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-while True:
-    line = syncproc.stdout.readline()
-    if not line:
-        break
-    print(line.rstrip().decode("utf-8"))
+syncproc=subprocess.call(command, shell=True)
